@@ -136,5 +136,3 @@
 
 // PrintArray(myArray);
 // Console.Write($" -> {maxNumber - minNumber}");
-
-//12345

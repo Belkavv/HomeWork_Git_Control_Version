@@ -33,14 +33,14 @@
 //     Console.WriteLine();
 // }
 
-// Console.Write("Enter the number of rows: ");
-// int rows = Convert.ToInt32(Console.ReadLine());
-// Console.Write("Enter the number of cols: ");
-// int cols = Convert.ToInt32(Console.ReadLine());
-// Console.Write("Enter the minimum value: ");
-// int minValue = Convert.ToInt32(Console.ReadLine());
-// Console.Write("Enter the maximum value: ");
-// int maxValue = Convert.ToInt32(Console.ReadLine());
+Console.Write("Enter the number of rows: ");
+int rows = Convert.ToInt32(Console.ReadLine());
+Console.Write("Enter the number of cols: ");
+int cols = Convert.ToInt32(Console.ReadLine());
+Console.Write("Enter the minimum value: ");
+int minValue = Convert.ToInt32(Console.ReadLine());
+Console.Write("Enter the maximum value: ");
+int maxValue = Convert.ToInt32(Console.ReadLine());
 
 // double[,] myArray = Create2DRandomArray(rows, cols, minValue, maxValue);
 
@@ -56,6 +56,11 @@
 // 8 4 2 4
 // 17 -> такого числа в массиве нет
 
+// bool Element(int row, int col, double[,] array)
+// {
+//     if (row < 0 | row > myArray.GetLength(0) - 1 || col < 0 || col > myArray.GetLength(1) - 1) return false;
+//     else return true;
+// }
 
 // Console.Write("Enter row position: ");
 // int row = Convert.ToInt32(Console.ReadLine()) - 1;
@@ -64,8 +69,8 @@
 
 // Print2DArray(myArray);
 
-// if (row < 0 | row > myArray.GetLength(0) - 1 || col < 0 || col > myArray.GetLength(1) - 1) Console.WriteLine($"{row + 1} {col + 1} -> Такого элемента нет");
-// else Console.WriteLine($"{row + 1} {col + 1} -> {myArray[row, col]}");
+// if (Element(row, col, myArray) == true) Console.WriteLine($"{row + 1} {col + 1} -> {myArray[row, col]}");
+// else Console.WriteLine($"{row + 1} {col + 1} -> Такого элемента нет");
 
 
 
@@ -77,20 +82,62 @@
 // 8 4 2 4
 // Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
 
-// void Mean(double[,] array)
-// {
-//     Console.Write("Arithmetic mean of each column: ");
-//     for (int j = 0; j < array.GetLength(1); j++)
-//     {
-//         double sum = 0;
-//         for (int i = 0; i < array.GetLength(0); i++)
-//         {
-//             sum += array[i, j];
-//         }
-//         Console.Write($"{sum / array.GetLength(0)} ");
-//     }
-//     Console.WriteLine("");
-// }
 
-// Print2DArray(myArray);
-// Mean(myArray);
+int[,] Create2DRandomArray(int rows, int cols, int minValue, int maxValue)
+{
+    int[,] array = new int[rows, cols];
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            array[i, j] = new Random().Next(minValue, maxValue);
+        }
+    }
+    return array;
+}
+
+void Print2DArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+       for (int j = 0; j < array.GetLength(1); j++)
+       {
+           Console.Write(array[i, j] + " ");
+       }
+       Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+void PrintArray(double[] array)
+{
+    for (int i = 0; i < array.Length; i++)
+    {
+        Console.Write(array[i] + "; ");
+    }
+    Console.WriteLine();
+}
+
+double[] MeanCol(int[,] array)
+{
+        double[] meanArray = new double[array.GetLength(1)];
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            double sum = 0;
+            double mean = 0;
+            for (int i = 0; i < array.GetLength(0); i++)
+            {
+                sum += array[i, j];
+            }
+            Math.Round(mean = sum / array.GetLength(0));
+            meanArray[j] = mean;
+        }
+        return meanArray;
+}
+
+int[,] myArray = Create2DRandomArray(rows, cols, minValue, maxValue);
+
+Print2DArray(myArray);
+Console.Write($"Arithmetic mean of each column -> ");
+PrintArray(MeanCol(myArray));
